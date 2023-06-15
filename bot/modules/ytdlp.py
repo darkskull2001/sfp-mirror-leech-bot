@@ -285,7 +285,7 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
             if len(bulk) == 0:
                 raise ValueError('Bulk Empty!')
         except:
-            await sendMessage(message, 'Reply to text file or tg message that have links seperated by new line!')
+            await sendMessage(message, 'Reply to text file or Telegram message that have links seperated by new line!')
             return
         b_msg = input_list[:1]
         b_msg.append(f'{bulk[0]} -i {len(bulk)}')
