@@ -111,7 +111,7 @@ class GoogleDriveHelper:
             regex = r"https:\/\/drive\.google\.com\/(?:drive(.*?)\/folders\/|file(.*?)?\/d\/)([-\w]+)"
             res = re_search(regex, link)
             if res is None:
-                raise IndexError("G-Drive ID not found.")
+                raise IndexError("Google-Drive ID not found.")
             return res.group(3)
         parsed = urlparse(link)
         return parse_qs(parsed.query)['id'][0]
@@ -162,7 +162,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.__getIdFromUrl(link)
         except (KeyError, IndexError):
-            return "Google Drive ID could not be found in the provided link"
+            return "Google-Drive ID could not be found in the provided link"
         msg = ''
         try:
             self.__service.files().delete(fileId=file_id, supportsAllDrives=True).execute()
@@ -175,7 +175,7 @@ class GoogleDriveHelper:
                     LOGGER.error('File not found. Trying with token.pickle...')
                     self.__service = token_service
                     return self.deletefile(link)
-                err = "File not found or insufficientFilePermissions!"
+                err = "File not found or insufficient File Permissions!"
             LOGGER.error(f"Delete Result: {err}")
             msg = str(err)
         return msg
@@ -207,7 +207,7 @@ class GoogleDriveHelper:
                 link = self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)
                 if self.__is_cancelled:
                     return
-                LOGGER.info(f"Uploaded To G-Drive: {file_name}")
+                LOGGER.info(f"Uploaded To Google-Drive: {file_name}")
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(
@@ -260,7 +260,7 @@ class GoogleDriveHelper:
     def __create_directory(self, directory_name, dest_id):
         file_metadata = {
             "name": directory_name,
-            "description": "Uploaded by Mirror-leech-telegram-bot",
+            "description": "Uploaded by @SinhalaFlims",
             "mimeType": self.__G_DRIVE_DIR_MIME_TYPE
         }
         if dest_id is not None:
@@ -280,7 +280,7 @@ class GoogleDriveHelper:
         # File body description
         file_metadata = {
             'name': file_name,
-            'description': 'Uploaded by Mirror-leech-telegram-bot',
+            'description': 'Uploaded by @SinhalaFlims',
             'mimeType': mime_type,
         }
         if dest_id is not None:
